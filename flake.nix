@@ -54,15 +54,18 @@
             jellyfin-web
           ];
 
+          environment.etc."jellyweb-session.sh".text = ''
+            #!/bin/sh
+            exec ${pkgs.cage}/bin/cage \
+              ${pkgs.jellyfin-web}/share/jellyfin-web/index.html
+          '';
+          environment.etc."jellyweb-session.sh".mode = "0755";
+
           services.greetd = {
             enable = true;
             settings = {
               default_session = {
-                command = ''
-                  ${pkgs.greetd.tuigreet}/bin/tuigreet \
-                    --time \
-                    --cmd "${pkgs.cage}/bin/cage ${pkgs.jellyfin-web}/bin/jellyfin-web"
-                '';
+                command = "/etc/jellyweb-session.sh";
                 user = "greeter";
               };
             };
