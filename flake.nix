@@ -54,12 +54,10 @@
             jellyfin-web
           ];
 
-          environment.etc."jellyweb-session.sh".text = ''
-            #!/bin/sh
-            exec ${pkgs.cage}/bin/cage \
-              ${pkgs.jellyfin-web}/share/jellyfin-web/index.html
-          '';
-          environment.etc."jellyweb-session.sh".mode = "0755";
+          environment.etc."jellyweb-session.sh" = {
+            source = ./jellyweb-session.sh;
+            mode = "0755";
+          };
 
           services.greetd = {
             enable = true;
@@ -72,7 +70,6 @@
           };
 
           networking.networkmanager.enable = true;
-
           services.dbus.enable = true;
         })
       ];
