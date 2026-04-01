@@ -35,7 +35,7 @@
             fsType = "vfat";
           };
 
-          users.users.youruser = {
+          users.users.user = {
             isNormalUser = true;
             extraGroups = ["wheel" "video" "input"];
             password = "password";
@@ -66,7 +66,7 @@
             settings = {
               default_session = {
                 command = "/etc/jellyweb-session.sh";
-                user = "greeter";
+                user = "user";
               };
             };
           };
